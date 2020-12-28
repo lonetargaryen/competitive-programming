@@ -3,8 +3,6 @@
 
 using namespace std;
 
-int deepestLevel = 0;
-
 class Tree {
     public:
         int val;
@@ -12,16 +10,26 @@ class Tree {
         Tree *right;
 };
 
-int deepestNode(Tree* node, int k) {
-    if (!node) return 0;
+int deepestLevel = 0;
+int ans;
+ 
+void deepestNode(Tree* node, int k) {
+    if (!node) return;
     if (!(node->left) && !(node->right)) {
-        if (k > deepestLevel) return node->val;
+        if (k > deepestLevel) {
+            deepestLevel = k;
+            ans = node->val;
+        }
     }
-    return max(deepestNode(node->left, k + 1), deepestNode(node->right, k + 1));
+    deepestNode(node->left, k + 1);
+    deepestNode(node->right, k + 1);
 }
 
 int solve(Tree* root) {
-    return deepestNode(root, 0);
+    deepestLevel = 0;
+    ans = -1;
+    deepestNode(root, 1);
+    return ans;
 }
 
 int main() {
