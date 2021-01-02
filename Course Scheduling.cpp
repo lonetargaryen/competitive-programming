@@ -3,24 +3,30 @@
 
 using namespace std;
 
+set<int> completedCourses;
 
-bool solve(vector<vector<int>>& courses) {
-    int count = courses.size(), i = 0;
-    set<int> completedCourses;
-    while (i != count) {
-        for (int i=0;i<count;i++) {
-            if (courses[i].size()) {
-
-            }
-            else i++;
+void DFS(int index, vector<vector<int>>& courses) {
+    completedCourses.insert(index);
+    for (int i=0;i<courses[index].size();i++) {
+        if (!completedCourses.count(courses[index][i])) {
+            DFS(courses[index][i], courses);
         }
     }
-    return true;
+}
+
+bool solve(vector<vector<int>>& courses) {
+    for (int i=0;i<courses.size();i++) {
+        if (!completedCourses.count(i)) {
+            DFS(i, courses);
+        }
+    }
+    return (completedCourses.size() == courses.size());
 }
 
 int main() {
-    vector<int> v = {1,2,3,4,5,6};
+    vector<vector<int>> courses = {{},{2,0,1},{}};
+    // vector<int> v = {1,2,3,4,5,6};
     // solve(v);
-    // cout<<solve(35)<<'\n';
+    cout<<solve(courses)<<'\n';
     return 0;
 }
