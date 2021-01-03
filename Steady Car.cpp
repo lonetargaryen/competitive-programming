@@ -17,7 +17,10 @@ int solve(vector<int>& positions) {
             if (ptr > n-2) break;
         }
         if (ptr == i && !longest) longest = 1;
-        if ((ptr - i + 1) > longest) longest = (ptr - i + 1);
+        if ((ptr - i + 1) > longest) {
+            longest = (ptr - i + 1);
+            if (ptr == n-1) longest--;
+        }
         i = ptr;
     }
     return longest+1;

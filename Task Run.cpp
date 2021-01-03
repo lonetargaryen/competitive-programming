@@ -4,32 +4,31 @@
 using namespace std;
 
 int solve(vector<int>& tasks, int k) {
-    map<int, int> m;
-    int ans = 0, waiting = 0;
+    unordered_map<int, int> m;
+    int time = 0;
     for (int i=0;i<tasks.size();i++) {
         if (m.count(tasks[i])) {
-            if ((i - m[tasks[i]] + waiting) > k) {
-                m[tasks[i]] = i;
-                ans++;
+            if ((time - m[tasks[i]]) > k) {
+                m[tasks[i]] = time;
+                time++;
             }
             else {
-                ans += (k - (i - m[tasks[i]]));
-                waiting += (k - (i - m[tasks[i]]));
-                m[tasks[i]] = i;
-                ans++;
+                time += (k - (time - m[tasks[i]]) + 1);
+                m[tasks[i]] = time;
+                time++;
             }
         }
         else {
-            m[tasks[i]] = i;
-            ans++;
+            m[tasks[i]] = time;
+            time++;
         }
     }
-    return ans;
+    return time;
 }
 
 int main() {
-    vector<int> v = {0,0,0};
+    vector<int> v = {0,0,1,0};
     // solve(v);
-    cout<<solve(v, 4)<<'\n';
+    cout<<solve(v, 2)<<'\n';
     return 0;
 }

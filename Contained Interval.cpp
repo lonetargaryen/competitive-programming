@@ -4,11 +4,16 @@
 using namespace std;
 
 bool solve(vector<vector<int>>& intervals) {
-    for (int i=0;i<intervals.size();i++) {
-        for (int j=i+1;j<intervals.size();j++) {
-            if (intervals[j][0] >= intervals[i][0] && intervals[j][1] <= intervals[i][1]) return true;
-            if (intervals[j][0] <= intervals[i][0] && intervals[j][1] >= intervals[i][1]) return true;
-        }
+    sort(intervals.begin(), intervals.end());
+    // set<vector<int>> s;
+    for (int i=1;i<intervals.size();i++) {
+        if (intervals[i][0] <= intervals[i-1][0] && intervals[i][1] >= intervals[i-1][1]) return true;
+        if (intervals[i][0] >= intervals[i-1][0] && intervals[i][1] <= intervals[i-1][1]) return true;
+        // for (auto x: s) {
+        //     if (intervals[i][0] <= x[0] && intervals[i][1] >= x[1]) return true;
+        //     if (intervals[i][0] >= x[0] && intervals[i][1] <= x[1]) return true;
+        // }
+        // s.insert(intervals[i]);
     }
     return false;
 }
