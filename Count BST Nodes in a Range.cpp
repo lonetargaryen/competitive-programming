@@ -12,7 +12,7 @@ using namespace std;
 
 int recursive(Tree* root, int lo, int hi) {
     if (root == nullptr) return 0;
-    if (root->val >= lo && root->val <= hi) return (1 + solve(root->left, lo, hi) + solve(root->right, lo, hi)));
+    if (root->val >= lo && root->val <= hi) return (1 + solve(root->left, lo, hi) + solve(root->right, lo, hi));
     return 0;
 }
 
